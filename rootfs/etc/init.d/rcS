@@ -1,0 +1,38 @@
+#!/bin/sh
+mkdir -p /proc /sys /dev /tmp /etc /mnt/storage /usr/share /lib64
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+mount -t tmpfs tmpfs /tmp
+chmod 1777 /tmp
+
+mknod /dev/sda b 8 0 2>/dev/null
+mount /dev/sda /mnt/storage 2>/dev/null
+
+ln -s /mnt/storage/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2 2>/dev/null
+ln -s /mnt/storage/usr/share/terminfo /usr/share/terminfo 2>/dev/null
+
+export PATH=$PATH:/bin:/sbin:/mnt/storage/bin
+export LD_LIBRARY_PATH=/mnt/storage/lib:/mnt/storage/lib64:/lib:/usr/lib
+export TERMINFO=/usr/share/terminfo
+export TERM=xterm
+
+ifconfig eth0 10.0.2.15 up
+route add default gw 10.0.2.2 2>/dev/null
+
+clear
+echo "      .      "
+echo "     /|\\     "
+echo "    / | \\    "
+echo "   /  |  \\   "
+echo "  *---O---* "
+echo "   \\  |  /   "
+echo "    \\ | /    "
+echo "     \\|/     "
+echo "      '      "
+echo "------------------------------------------"
+echo "   ORIGIN OS - Online                     "
+echo "------------------------------------------"
+echo "   STATUS  : Online                       "
+echo "   STORAGE : /mnt/storage Mounted         "
+echo "------------------------------------------"

@@ -1,0 +1,4 @@
+::sysinit:/bin/sh /etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
